@@ -1,11 +1,13 @@
 import os
+from datetime import datetime
 from flask import Flask, redirect
 
 app = Flask(__name__)
 messages = []
 ''' Add messages to a list '''
 def add_messages(username, message):
-    return messages.append('{}: {}'.format(username, message))
+    now = datetime.now().strftime("%H:%M:%S")
+    return messages.append('({}) {}: {}'.format(now, username, message))
     
 def show_messages():
     return "<br>".join(messages)

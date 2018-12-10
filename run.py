@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from flask import Flask, redirect
+from flask import Flask, redirect, render_template
 
 app = Flask(__name__)
 messages = []
@@ -16,7 +16,7 @@ def show_messages():
 
 def index():
     '''Home page with chat instructions'''
-    return "To send a message use /USERNAME/MESSAGE"
+    return render_template('index.html')
     
 @app.route('/<username>')
 

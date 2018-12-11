@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, request
 
 app = Flask(__name__)
 messages = []
@@ -12,17 +12,21 @@ def add_messages(username, message):
 def show_messages():
     return "<br>".join(messages)
 
-@app.route('/')
+@app.route('/', methods = ["GET", "POST"])
 
 def index():
     '''Home page with chat instructions'''
+    if request.method == "POST":
+        with open("data/users.txt", "a") as file:
+            file.writelines(request.form['username']+"\n")
+        return redirect(request.form['username'])    
     return render_template('index.html')
     
 @app.route('/<username>')
 
 def user(username):
     ''' Display chat messages '''
-    return "<h1>Hello {}</h1>\n{}".format(username.capitalize(), show_messages()) 
+    return "<h1>Hello {}</h1>{}".format(username.capitalize(), show_messages()) 
     
 @app.route('/<username>/<message>')   
 

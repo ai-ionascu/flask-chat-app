@@ -7,10 +7,11 @@ messages = []
 ''' Add messages to a list '''
 def add_messages(username, message):
     now = datetime.now().strftime("%H:%M:%S")
-    return messages.append('({}) {}: {}'.format(now, username, message))
+    message_dict = {"timestamp": now, "from": username, "message": message}
+    return messages.append(message_dict)
     
 def show_messages():
-    return "<br>".join(messages)
+    return messages
 
 @app.route('/', methods = ["GET", "POST"])
 

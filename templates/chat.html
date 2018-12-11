@@ -4,7 +4,15 @@
         <title>Chat home page</title>
     </head>
     <body>
-        <h1>Hello {{ username }}</h1>
-        {{ chat_messages }}
+        <h1>Hello {{ username.title() }}</h1>
+        {%for message in chat_messages %}
+        <p>At {{ message['timestamp'] }} {{ message['from'].title() }} wrote: {{ message['message'] }}</p>
+        {% endfor %}
     </body>
+    
+    <script>
+        setTimeout(function(){
+            location.reload();
+        }, 5000);
+    </script>
 </html>

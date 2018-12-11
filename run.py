@@ -3,14 +3,23 @@ from datetime import datetime
 from flask import Flask, redirect, render_template, request
 
 app = Flask(__name__)
-messages = []
-''' Add messages to a list '''
+
+''' Add messages to a dictionary '''
 def add_messages(username, message):
     now = datetime.now().strftime("%H:%M:%S")
     message_dict = {"timestamp": now, "from": username, "message": message}
-    return messages.append(message_dict)
+    '''Write messages in a text file'''
+    with open('data/messages.txt', 'a') as chat_list:
+        chat_list.writelines("At {0} {1} wrote: {2}\n".format(
+            message_dict['timestamp'], 
+            message_dict['from'].title(), 
+            message_dict['message']))
+
     
 def show_messages():
+    '''Read messages from the text file'''
+    with open('data/messages.txt', 'r') as chat_list:
+        messages = chat_list.readlines()
     return messages
 
 @app.route('/', methods = ["GET", "POST"])

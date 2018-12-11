@@ -6,7 +6,7 @@
     <body>
         <h1>Hello {{ username.title() }}</h1>
         {%for message in chat_messages %}
-        <p>At {{ message['timestamp'] }} {{ message['from'].title() }} wrote: {{ message['message'] }}</p>
+        <p>{{ message }}</p>
         {% endfor %}
     </body>
     
